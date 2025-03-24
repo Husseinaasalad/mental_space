@@ -427,70 +427,16 @@ function getStatusBadgeClass($status) {
                                                  strtotime($appointment['session_date']) + ($appointment['duration'] * 60) >= time());
                                     ?>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                                <div>
-                                    <p class="text-sm text-gray-700">
-                                        Showing <span class="font-medium"><?php echo $offset + 1; ?></span> to <span class="font-medium"><?php echo min($offset + $perPage, $totalAppointments); ?></span> of <span class="font-medium"><?php echo $totalAppointments; ?></span> appointments
-                                    </p>
-                                </div>
-                                <div>
-                                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                                        <?php if ($page > 1): ?>
-                                            <a href="<?php echo buildPaginationUrl($page - 1); ?>" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                                <span class="sr-only">Previous</span>
-                                                <i class="fas fa-chevron-left"></i>
-                                            </a>
-                                        <?php endif; ?>
-                                        
-                                        <?php
-                                        // Calculate range of page numbers to show
-                                        $startPage = max(1, $page - 2);
-                                        $endPage = min($totalPages, $page + 2);
-                                        
-                                        // Always show first page
-                                        if ($startPage > 1) {
-                                            echo '<a href="' . buildPaginationUrl(1) . '" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">1</a>';
-                                            if ($startPage > 2) {
-                                                echo '<span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>';
-                                            }
-                                        }
-                                        
-                                        // Show page numbers
-                                        for ($i = $startPage; $i <= $endPage; $i++) {
-                                            if ($i == $page) {
-                                                echo '<span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-green-50 text-sm font-medium text-green-600">' . $i . '</span>';
-                                            } else {
-                                                echo '<a href="' . buildPaginationUrl($i) . '" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">' . $i . '</a>';
-                                            }
-                                        }
-                                        
-                                        // Always show last page
-                                        if ($endPage < $totalPages) {
-                                            if ($endPage < $totalPages - 1) {
-                                                echo '<span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>';
-                                            }
-                                            echo '<a href="' . buildPaginationUrl($totalPages) . '" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">' . $totalPages . '</a>';
-                                        }
-                                        ?>
-                                        
-                                        <?php if ($page < $totalPages): ?>
-                                            <a href="<?php echo buildPaginationUrl($page + 1); ?>" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                                <span class="sr-only">Next</span>
-                                                <i class="fas fa-chevron-right"></i>
-                                            </a>
-                                        <?php endif; ?>
-                                    </nav>
-                                </div>
-                            </div>text-sm font-medium text-gray-900">
-                                                <?php echo date("M j, Y", strtotime($appointment['session_date'])); ?>
-                                            </div>
-                                            <div class="text-sm text-gray-500">
-                                                <?php echo formatAppointmentTime($appointment['session_date']); ?>
-                                                <?php if ($isCurrent): ?>
-                                                    <span class="ml-2 px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Current</span>
-                                                <?php endif; ?>
-                                            </div>
+                                        <td class="px-6 py-4 whitespace-nowrap"><td class="px-6 py-4 whitespace-nowrap">
+                                                                                        <div class="text-sm font-medium text-gray-900">
+                                                                                            <?php echo date("M j, Y", strtotime($appointment['session_date'])); ?>
+                                                                                        </div>
+                                                                                        <div class="text-sm text-gray-500">
+                                                                                            <?php echo formatAppointmentTime($appointment['session_date']); ?>
+                                                                                            <?php if ($isCurrent): ?>
+                                                                                                <span class="ml-2 px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Current</span>
+                                                                                            <?php endif; ?>
+                                                                                        </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
@@ -568,19 +514,23 @@ function getStatusBadgeClass($status) {
                         </table>
                     </div>
                     
-                    <!-- Pagination -->
+                    </table>
+                    </div>
+
+                    <!-- Pagination - Add this here -->
                     <?php if ($totalPages > 1): ?>
                         <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                            <div class="flex-1 flex justify-between sm:hidden">
-                                <?php if ($page > 1): ?>
-                                    <a href="<?php echo buildPaginationUrl($page - 1); ?>" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                        Previous
-                                    </a>
-                                <?php endif; ?>
-                                <?php if ($page < $totalPages): ?>
-                                    <a href="<?php echo buildPaginationUrl($page + 1); ?>" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                        Next
-                                    </a>
-                                <?php endif; ?>
+                            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-700">
+                                        Showing <span class="font-medium"><?php echo $offset + 1; ?></span> to <span class="font-medium"><?php echo min($offset + $perPage, $totalAppointments); ?></span> of <span class="font-medium"><?php echo $totalAppointments; ?></span> appointments
+                                    </p>
+                                </div>
+                                <div>
+                                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                        <!-- All the pagination code goes here -->
+                                    </nav>
+                                </div>
                             </div>
-                            <div class="
+                        </div>
+                    <?php endif; ?>
