@@ -147,4 +147,11 @@ try {
                 Resources
             </a>
             
-            <a href="analytics.php" class="group flex items-center px-3 py-2 text-base font-medium rounded-md <?php echo isActive('analytics
+            <a href="analytics.php" class="group flex items-center px-3 py-2 text-base font-medium rounded-md <?php echo isActive('analytics.php'); ?> hover:bg-green-800 hover:text-white mb-1">
+                <i class="fas fa-chart-bar mr-3 text-green-300 group-hover:text-green-200"></i>
+                Analytics
+            </a>
+        </nav>
+                </div>
+            </div>
+        </div>
